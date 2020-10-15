@@ -1,3 +1,4 @@
+/// SPDX-License-Identifier: Mit
 pragma solidity 0.6.12;
 
 contract Migrations {
