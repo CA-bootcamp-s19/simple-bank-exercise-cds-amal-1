@@ -1,6 +1,7 @@
 /*
 
 The public version of the file used for testing can be found here: https://gist.github.com/ConsenSys-Academy/ce47850a8e2cba6ef366625b665c7fba
+pragma solidity >=0.4.22 <0.8.0;
 
 This test file has been updated for Truffle version 5.0. If your tests are failing, make sure that you are
 using Truffle version 5.0. You can check this by running "trufffle version"  in the terminal. If version 5 is not
@@ -39,13 +40,16 @@ contract('SimpleBank', function(accounts) {
     await instance.deposit({from: alice, value: deposit})
     const balance = await instance.getBalance({from: alice})
 
+    // todo: this logs a txn when getBalance is not declared as a view
+    // console.log("balancexxxxxx: %o", balance);
+    // console.log("deposit: %o", deposit);
     assert.equal(deposit.toString(), balance, 'deposit amount incorrect, check deposit method')
   })
 
   it("should log a deposit event when a deposit is made", async() => {
     await instance.enroll({from: alice})
     const result  = await instance.deposit({from: alice, value: deposit})
-    
+
     const expectedEventResult = {accountAddress: alice, amount: deposit}
 
     const logAccountAddress = result.logs[0].args.accountAddress
